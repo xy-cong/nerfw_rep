@@ -1,0 +1,1 @@
+python run.py --type evaluate --cfg_file configs/nerfw_5pointz/nerfw_5pointz.yaml --N_vocab 1000 --data_root '/mnt/data/cxy_colmap/LearningNeRF_nerfw_2/5pointz' --encode_a gpus 0,1,2,3

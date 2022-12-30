@@ -1,0 +1,1 @@
+python prepare_phototourism.py --data_root '/mnt/data/cxy_colmap/LearningNeRF_nerfw_2/5pointz' --cfg_file configs/nerfw_5pointz/nerfw_5pointz.yaml

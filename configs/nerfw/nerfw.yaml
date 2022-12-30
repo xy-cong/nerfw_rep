@@ -1,0 +1,69 @@
+task: nerfw
+gpus: [0]
+exp_name: 'nerfw'
+scene: 'brandenburg_gate'
+
+train_dataset_module: lib.datasets.nerfw.phototourism 
+test_dataset_module: lib.datasets.nerfw.phototourism
+network_module: lib.networks.nerfw.network
+loss_module: lib.train.losses.nerfw 
+evaluator_module: lib.evaluators.nerfw
+visualizer_module: lib.visualizers.nerfw
+
+task_arg:
+    N_rays: 1024
+    chunk_size: 4096
+    white_bkgd: True
+    cascade_samples: [64, 128]
+
+network:
+    nerf:
+        W: 256
+        D: 8
+        V_D: 1
+    xyz_encoder:
+        type: 'frequency'
+        input_dim: 3
+        freq: 10
+    dir_encoder:
+        type: 'frequency'
+        input_dim: 3
+        freq: 4
+
+train_dataset:
+    data_root: '/mnt/data/cxy_colmap/LearningNeRF_nerfw_2/brandenburg_gate'
+    img_downscale: 4
+    split: 'train'
+    val_num: 1
+    input_ratio: 1.
+    cams: [0, -1, 1] 
+    use_cache: False
+
+test_dataset:
+    data_root: '/mnt/data/cxy_colmap/LearningNeRF_nerfw_2/brandenburg_gate'
+    split: 'test'
+    val_num: 1
+    img_downscale: 4
+    input_ratio: 1.
+    cams: [0, -1, 100]
+    use_cache: False
+
+train:
+    batch_size: 1
+    lr: 5e-4
+    weight_decay: 0.
+    epoch: 400
+    scheduler:
+        type: 'exponential'
+        gamma: 0.1
+        decay_epochs: 1000
+    num_workers: 4
+
+test:
+    batch_size: 1
+
+ep_iter: 500
+save_ep: 20
+eval_ep: 20       # 10000 iterations
+save_latest_ep: 5 # 2500 iterations
+log_interval: 10

@@ -1,0 +1,1 @@
+python train_net.py --cfg_file configs/nerf/nerf.yaml --N_vocab 1000 --data_root '/mnt/data/cxy_colmap/brandenburg_gate' --local_rank 0 gpus 0,
